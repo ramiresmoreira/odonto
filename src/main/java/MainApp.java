@@ -4,7 +4,9 @@ public class MainApp {
 
 	public static void main(String[] args) {
         port(getHerokuAssignedPort());
-        get("/hello", (req, res) -> "Hello Heroku World \0/");
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        String url = processBuilder.environment().get("JDBC_DATABASE_URL");
+        get("/hello", (req, res) -> "Hello Heroku World "+url);
     }
 
     static int getHerokuAssignedPort() {
