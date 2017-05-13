@@ -11,7 +11,6 @@ public class JPAUtil {
 	
 //	EntityManagerFactory factory = Persistence.createEntityManagerFactory("odonto"); 
 	private EntityManagerFactory factory = MainApp.getSession().getEntityManagerFactory();
-	
 	public EntityManager getEntityManager(){
 		EntityManager em = factory.createEntityManager();
 		return em;

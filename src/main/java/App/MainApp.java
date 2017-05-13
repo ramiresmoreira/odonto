@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 
 import br.edu.ifce.odonto.controllers.DiscenteController;
 import br.edu.ifce.odonto.util.HibernateUtil;
-import br.edu.ifce.odonto.util.JPAUtil;
 import spark.Spark;
 
 public class MainApp {
@@ -25,19 +24,19 @@ public class MainApp {
 	private static Session session;
 
 	public static void main(String[] args) {
-		try {
-			port(getHerokuAssignedPort());
-
-			ProcessBuilder processBuilder = new ProcessBuilder();
-			String url = processBuilder.environment().get("JDBC_DATABASE_URL");
-			URI dbURl = new URI(url);
-			String[] userInfo = dbURl.getUserInfo().split(":");
-			session = HibernateUtil.openSession(dbURl.getHost(), dbURl.getPort(), dbURl.getPath(), userInfo[0],
-					userInfo[1]);
-		} catch (URISyntaxException | NullPointerException e) {
-			session = HibernateUtil.openSession("localhost", 5432, "/odonto", "ramiresmoreira", "120210");
-			System.out.println("rodando local");
-		}
+		port(getHerokuAssignedPort());
+//		try {
+//			ProcessBuilder processBuilder = new ProcessBuilder();
+//			String url = processBuilder.environment().get("DATABASE_URL");
+//			URI dbURl = new URI(url);
+//			URI dbURl = new URI("jdbc:postgresql://mwvunzpjqtqwse:fdf5514aaf8c2ca203603a14c57dd9c6aa7cde9b5cf30b4cb2af124e8537f265@ec2-23-23-111-171.compute-1.amazonaws.com:5432/d9duj1m1po4a03");
+//			String[] userInfo = dbURl.getUserInfo().split(":");
+//			session = HibernateUtil.openSession(dbURl.getHost(), dbURl.getPort(), dbURl.getPath(), userInfo[0],
+//					userInfo[1]);
+//		} catch (URISyntaxException | NullPointerException e) {
+//			session = HibernateUtil.openSession("localhost", 5432, "/odonto", "ramiresmoreira", "120210");
+//			System.out.println("rodando local");
+//		}
 
 		path("/api/", () -> {
 			path("/paciente/", () -> {
