@@ -1,3 +1,5 @@
+package App;
+
 import static spark.Spark.after;
 import static spark.Spark.get;
 import static spark.Spark.path;
@@ -7,38 +9,49 @@ import static spark.Spark.post;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.hibernate.Session;
+
 import com.google.gson.Gson;
 
 import br.edu.ifce.odonto.controllers.DiscenteController;
+import br.edu.ifce.odonto.util.HibernateUtil;
+import br.edu.ifce.odonto.util.JPAUtil;
+import spark.Spark;
 
 public class MainApp {
 
 	private static DiscenteController discenteController = new DiscenteController();
 	private static Gson gson = new Gson();
+	private static Session session;
 
 	public static void main(String[] args) {
-		port(getHerokuAssignedPort());
-		ProcessBuilder processBuilder = new ProcessBuilder();
-		String url = processBuilder.environment().get("JDBC_DATABASE_URL");
 		try {
+			port(getHerokuAssignedPort());
+
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			String url = processBuilder.environment().get("JDBC_DATABASE_URL");
 			URI dbURl = new URI(url);
+			String[] userInfo = dbURl.getUserInfo().split(":");
+			session = HibernateUtil.openSession(dbURl.getHost(), dbURl.getPort(), dbURl.getPath(), userInfo[0],
+					userInfo[1]);
 		} catch (URISyntaxException | NullPointerException e) {
+			session = HibernateUtil.openSession("localhost", 5432, "/odonto", "ramiresmoreira", "120210");
 			System.out.println("rodando local");
 		}
-		
-		path("/api/", ()->{
-			path("/paciente/", ()->{
-				get("/",(req,resp)->discenteController.getAll(),gson::toJson);
-				get(":id",(req,resp)-> discenteController.get(req, resp),gson::toJson);
+
+		path("/api/", () -> {
+			path("/paciente/", () -> {
+				get("/", (req, resp) -> discenteController.getAll(), gson::toJson);
+				get(":id", (req, resp) -> discenteController.get(req, resp), gson::toJson);
 				post("/add", (req, resp) -> discenteController.addUser(req, resp), gson::toJson);
 			});
 		});
-		
-		path("/api/", ()->{
-			get("/outro",(req,resp)->"So um exemplo",gson::toJson);
+
+		path("/api/", () -> {
+			get("/outro", (req, resp) -> "So um exemplo", gson::toJson);
 		});
-		
-		after((req,resp)->resp.header("Content-Encondig", "gzip"));
+
+		after((req, resp) -> resp.header("Content-Encondig", "gzip"));
 	}
 
 	static int getHerokuAssignedPort() {
@@ -49,6 +62,10 @@ public class MainApp {
 		}
 		return 4567; // return default port if heroku-port isn't set (i.e. on
 						// localhost)
+	}
+
+	public static Session getSession() {
+		return session;
 	}
 
 }

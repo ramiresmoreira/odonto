@@ -44,8 +44,24 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.0</version>
 		</dependency>
-
-
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.10.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-tools -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-tools</artifactId>
+			<version>3.2.0.ga</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -76,7 +92,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>MainApp</mainClass>
+							<mainClass>App.MainApp</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

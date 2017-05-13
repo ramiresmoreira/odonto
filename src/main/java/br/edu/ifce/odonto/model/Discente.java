@@ -1,9 +1,29 @@
 package br.edu.ifce.odonto.model;
 
-public class Discente {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Discente implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	private String nome;
 	private int idade;
+	
+	public Discente() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Discente(String nome, int idade) {
 		this.nome = nome;
@@ -17,11 +37,12 @@ public class Discente {
 	public int getId() {
 		return id;
 	}
-
+//
 	@Override
 	public String toString() {
 		return "Discente [nome=" + nome + ", idade=" + idade + "]";
 	}
+	
 
 	@Override
 	public int hashCode() {
