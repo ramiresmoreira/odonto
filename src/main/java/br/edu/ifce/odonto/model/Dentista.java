@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import br.edu.ifce.odonto.util.ComparadorHorario;
 
@@ -29,10 +34,12 @@ public class Dentista {
 	
 	@ElementCollection
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	List<String> fones;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	List<Horario> horariosDeAtendimento = new ArrayList<Horario>();
 	
 	@Transient

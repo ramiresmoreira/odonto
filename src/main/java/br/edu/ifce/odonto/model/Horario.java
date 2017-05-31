@@ -1,12 +1,9 @@
 package br.edu.ifce.odonto.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class Horario {
@@ -18,8 +15,6 @@ public class Horario {
 	private int minuto;
 	private String diaDaSemana;
 	
-	@ManyToMany
-	private List<Dentista> dentistas;
 
 	public Horario() {
 		// TODO Auto-generated constructor stub
