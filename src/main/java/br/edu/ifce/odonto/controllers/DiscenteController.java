@@ -2,6 +2,8 @@ package br.edu.ifce.odonto.controllers;
 
 import java.util.Collection;
 
+import com.google.gson.Gson;
+
 import br.edu.ifce.odonto.DAO.DiscenteDAO;
 import br.edu.ifce.odonto.model.Discente;
 import spark.Request;
@@ -12,12 +14,15 @@ public class DiscenteController {
 	private static DiscenteDAO dao = new DiscenteDAO();
 
 	public String addUser(Request req, Response resp) throws Exception {
-		int idade = Integer.parseInt(req.queryParams("idade"));
-		String nome = req.queryParams("nome");
-		if (dao.save(new Discente(nome, idade)))
-			msg = "Success: Usuário adicionado com sucesso!";
-		else
-			msg = "Error: Já existe um usuário cadastrado com esse nome";
+//		Discente discente = new Gson().fromJson(req.body(), Discente.class);
+		System.out.println(req.body());
+		System.out.println(req.bodyAsBytes());
+//		int idade = Integer.parseInt(req.queryParams("idade"));
+//		String nome = req.queryParams("nome");
+//		if (dao.save(discente))
+//			msg = "Success: Usuário "+ discente.getNome() +" adicionado com sucesso!";
+//		else
+//			msg = "Error: Já existe um usuário cadastrado com esse nome";
 		return msg;
 	}
 

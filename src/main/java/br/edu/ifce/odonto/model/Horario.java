@@ -1,56 +1,64 @@
 package br.edu.ifce.odonto.model;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import br.edu.ifce.odonto.util.SemanaUtil;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
+@Entity
 public class Horario {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private Integer id;
+	private int hora;
+	private int minuto;
+	private String diaDaSemana;
+	
+	@ManyToMany
+	private List<Dentista> dentistas;
 
-	LocalTime horario;
-	DayOfWeek diaDaSemana;
+	public Horario() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public Horario(int hora, int minuto, DayOfWeek diaDasemana) {
-		horario = LocalTime.of(hora, minuto);
+	public Horario(int hora, int minuto, String diaDaSemana) {
+		this.hora = hora;
+		this.minuto = minuto;
+		this.diaDaSemana = diaDaSemana;
+		
+	}
+
+	public int getHora() {
+		return hora;
+	}
+
+	public void setHora(int hora) {
+		this.hora = hora;
+	}
+
+	public int getMinuto() {
+		return minuto;
+	}
+
+	public void setMinuto(int minuto) {
+		this.minuto = minuto;
+	}
+
+	public String getDiaDaSemana() {
+		return diaDaSemana;
+	}
+
+	public void setDiaDaSemana(String diaDasemana) {
 		this.diaDaSemana = diaDasemana;
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((diaDaSemana == null) ? 0 : diaDaSemana.hashCode());
-		result = prime * result + ((horario == null) ? 0 : horario.hashCode());
-		return result;
+	public String toString() {
+		return "Horario [hora=" + hora + ", minuto=" + minuto + ", diaDasemana=" + diaDaSemana + "]";
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Horario other = (Horario) obj;
-		if (diaDaSemana != other.diaDaSemana)
-			return false;
-		if (horario == null) {
-			if (other.horario != null)
-				return false;
-		} else if (!horario.equals(other.horario))
-			return false;
-		return true;
-	}
-
-	public DayOfWeek getDiaDaSemana() {
-		return diaDaSemana;
-	}
-
-	public LocalTime getHorario() {
-		return horario;
-	}
-
+	
 }

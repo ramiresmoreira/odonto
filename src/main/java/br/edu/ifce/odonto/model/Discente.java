@@ -31,6 +31,10 @@ public class Discente {
 	public int getId() {
 		return id;
 	}
+	
+	public String getNome() {
+		return nome;
+	}
 //
 	@Override
 	public String toString() {
