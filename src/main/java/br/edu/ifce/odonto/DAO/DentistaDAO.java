@@ -6,18 +6,21 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.edu.ifce.odonto.model.Agenda;
 import br.edu.ifce.odonto.model.Dentista;
 import br.edu.ifce.odonto.util.JPAUtil;
 
-public class dentistaDAO {
+public class DentistaDAO {
 	
 public boolean save(Dentista dentista) throws Exception{
 		
 		try {
+			dentista.setAgenda(new Agenda());
+			dentista.getAgenda().setDentista(dentista);
 			EntityManager em = new JPAUtil().getEntityManager();
 			em.getTransaction().begin();
 			em.persist(dentista);
-			em.getTransaction().commit();
+			em.getTransaction().commit();	
 			em.close();
 			return true;
 		} catch (Exception e) {
@@ -46,4 +49,14 @@ public boolean save(Dentista dentista) throws Exception{
 		return resultList;
 	}
 
+	public static Agenda getAgenda(Dentista dentista) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createQuery("SELECT a FROM Agenda a where dentista = :pDentista");
+		query.setParameter("pDentista", dentista);
+		em.getTransaction().commit();
+		Agenda agenda = (Agenda) query.getSingleResult();
+		return agenda;
+	}
+	
 }

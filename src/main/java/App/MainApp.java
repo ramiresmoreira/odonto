@@ -13,6 +13,7 @@ import org.hibernate.Session;
 
 import com.google.gson.Gson;
 
+import br.edu.ifce.odonto.controllers.AgendamentoController;
 import br.edu.ifce.odonto.controllers.DentistaController;
 import br.edu.ifce.odonto.controllers.DiscenteController;
 import br.edu.ifce.odonto.util.HibernateUtil;
@@ -52,6 +53,12 @@ public class MainApp {
 			path("/dentista/", () -> {
 				get("/","application/json",  (req, resp) -> dentistaController.getAll(), gson::toJson);
 				post("/add", (req, resp) -> dentistaController.addDentista(req, resp), gson::toJson);
+			});
+		});
+		
+		path("/api/", () -> {
+			path("/agendamento/", () -> {
+				post("/add","application/json",(req,resp)-> AgendamentoController.agendar(req, resp), gson::toJson);
 			});
 		});
 

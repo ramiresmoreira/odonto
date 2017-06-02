@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
@@ -36,14 +38,16 @@ public class Dentista {
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	List<String> fones;
+
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	List<Horario> horariosDeAtendimento = new ArrayList<Horario>();
 	
-	@Transient
-	Agenda agenda = new Agenda();
+	@OneToOne
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	Agenda agenda;
 	
 	
 	public Dentista() {
@@ -111,12 +115,71 @@ public class Dentista {
 		this.horariosDeAtendimento = horariosDeAtendimento;
 	}
 	
+	
+	
 
 	@Override
 	public String toString() {
-		return "Dentista [id=" + id + ", nome=" + nome + ", crm=" + crm + ", fones=" + fones
-				+ ", horariosDeAtendimento=" + horariosDeAtendimento + "]";
+		return "Dentista [id=" + id + ", nome=" + nome +"]";
 	}
 
+	public void setAgenda(Agenda agenda2) {
+		this.agenda = agenda2;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agenda == null) ? 0 : agenda.hashCode());
+		result = prime * result + ((crm == null) ? 0 : crm.hashCode());
+		result = prime * result + ((fones == null) ? 0 : fones.hashCode());
+		result = prime * result + ((horariosDeAtendimento == null) ? 0 : horariosDeAtendimento.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dentista other = (Dentista) obj;
+		if (agenda == null) {
+			if (other.agenda != null)
+				return false;
+		} else if (!agenda.equals(other.agenda))
+			return false;
+		if (crm == null) {
+			if (other.crm != null)
+				return false;
+		} else if (!crm.equals(other.crm))
+			return false;
+		if (fones == null) {
+			if (other.fones != null)
+				return false;
+		} else if (!fones.equals(other.fones))
+			return false;
+		if (horariosDeAtendimento == null) {
+			if (other.horariosDeAtendimento != null)
+				return false;
+		} else if (!horariosDeAtendimento.equals(other.horariosDeAtendimento))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
 	
 }

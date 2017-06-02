@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.edu.ifce.odonto.controllers.Agendamento;
+import br.edu.ifce.odonto.controllers.AgendamentoController;
 import br.edu.ifce.odonto.model.Dentista;
 import br.edu.ifce.odonto.model.Horario;
 import br.edu.ifce.odonto.model.Paciente;

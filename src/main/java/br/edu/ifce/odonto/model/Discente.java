@@ -35,13 +35,6 @@ public class Discente {
 	public String getNome() {
 		return nome;
 	}
-//
-	@Override
-	public String toString() {
-		return "Discente [nome=" + nome + ", idade=" + idade + "]";
-	}
-	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +62,14 @@ public class Discente {
 			return false;
 		return true;
 	}
-	
+
+	public int getIdade() {
+		return idade;
+	}
+
+	@Override
+	public String toString() {
+		return "Discente [id=" + id + ", nome=" + nome + "]";
+	}
 
 }

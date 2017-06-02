@@ -14,6 +14,10 @@ public class Horario {
 	private int hora;
 	private int minuto;
 	private String diaDaSemana;
+	private int dia;
+	private int mes;
+	private int ano;
+	
 	
 
 	public Horario() {
@@ -54,6 +58,69 @@ public class Horario {
 	@Override
 	public String toString() {
 		return "Horario [hora=" + hora + ", minuto=" + minuto + ", diaDasemana=" + diaDaSemana + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((diaDaSemana == null) ? 0 : diaDaSemana.hashCode());
+		result = prime * result + hora;
+		result = prime * result + minuto;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Horario other = (Horario) obj;
+		if (diaDaSemana == null) {
+			if (other.diaDaSemana != null)
+				return false;
+		} else if (!diaDaSemana.equals(other.diaDaSemana))
+			return false;
+		if (hora != other.hora)
+			return false;
+		if (minuto != other.minuto)
+			return false;
+		return true;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public int getDia() {
+		return dia;
+	}
+
+	public void setDia(int dia) {
+		this.dia = dia;
+	}
+
+	public int getMes() {
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 	
 }

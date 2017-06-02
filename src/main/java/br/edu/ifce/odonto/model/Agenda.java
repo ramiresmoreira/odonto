@@ -1,52 +1,100 @@
 package br.edu.ifce.odonto.model;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+@Entity
 public class Agenda {
 	
-	private Map<LocalDateTime, Paciente> agendamentos = new HashMap<>();
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private Integer id;
+	@ManyToMany
+	@Cascade(CascadeType.ALL)
+	private List<Agendamento> agendamentos = new ArrayList<>();
+
+	@OneToOne
+	@Cascade(CascadeType.ALL)
+	private Dentista dentista;
 	
-	public void add(LocalDateTime data,Paciente paciente){
-		agendamentos.put(data, paciente);
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setDentista(Dentista dentista) {
+		this.dentista = dentista;
 	}
 	
-	public Map<LocalDateTime, Paciente> getAgendamentos(){
+	public Dentista getDentista() {
+		return dentista;
+	}
+
+	public List<Agendamento> getAgendamentos() {
 		return agendamentos;
 	}
-	
-	public boolean dataIsDisponivel(LocalDateTime data){
-		if(agendamentos.get(data) == null)
-			return true;
-		return false;
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 	
-//	public int getQuantidadeDeAgendamentos(){
-//		return agendamentos.size();
-//	}
-	
-//	@Override
-//	public String toString() {
-//		if(agendamentos.isEmpty())
-//			return agendamentos.toString();
-//		String string = agendamentos.toString().replace("{", "").replace("}", "");
-//		StringTokenizer tokenizer = new StringTokenizer(string, "T");
-//		String data = tokenizer.nextToken();
-//		String hora = tokenizer.nextToken().substring(0, 5);
-//		tokenizer = new StringTokenizer(data, "-");
-//		String ano = tokenizer.nextToken();
-//		String mes = tokenizer.nextToken();
-//		String dia = tokenizer.nextToken();
-//		tokenizer = new StringTokenizer(string, "=");
-//		tokenizer.nextToken();
-//		String paciente = tokenizer.nextToken();
-//
-//		return paciente +" as "+hora + " no dia "+ dia+"/"+mes+"/"+ano;
-//	}
-//	
-	
+	public boolean addAgendamento(Agendamento agendamento){
+		return agendamentos.add(agendamento);
+	}
 
+	@Override
+	public String toString() {
+		return "Agenda [id=" + id + ", agendamentos=" + agendamentos + ", dentista=" + dentista + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agendamentos == null) ? 0 : agendamentos.hashCode());
+		result = prime * result + ((dentista == null) ? 0 : dentista.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Agenda other = (Agenda) obj;
+		if (agendamentos == null) {
+			if (other.agendamentos != null)
+				return false;
+		} else if (!agendamentos.equals(other.agendamentos))
+			return false;
+		if (dentista == null) {
+			if (other.dentista != null)
+				return false;
+		} else if (!dentista.equals(other.dentista))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	
 }

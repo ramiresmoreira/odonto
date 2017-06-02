@@ -4,13 +4,13 @@ import java.util.Collection;
 
 import com.google.gson.Gson;
 
-import br.edu.ifce.odonto.DAO.dentistaDAO;
+import br.edu.ifce.odonto.DAO.DentistaDAO;
 import br.edu.ifce.odonto.model.Dentista;
 import spark.Request;
 import spark.Response;
 
 public class DentistaController {
-	dentistaDAO dao = new dentistaDAO();
+	DentistaDAO dao = new DentistaDAO();
 	
 	public String addDentista(Request req , Response resp) throws Exception{
 		String msg = null;
