@@ -1,5 +1,7 @@
 package br.edu.ifce.odonto.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +15,11 @@ public class Horario {
 	private Integer id;
 	private int hora;
 	private int minuto;
-	private String diaDaSemana;
 	private int dia;
 	private int mes;
 	private int ano;
-	
+
+	private String diaDaSemana;
 	
 
 	public Horario() {
@@ -28,7 +30,10 @@ public class Horario {
 		this.hora = hora;
 		this.minuto = minuto;
 		this.diaDaSemana = diaDaSemana;
-		
+	}
+	
+	public LocalDate getData() {
+		return LocalDate.of(ano, mes, dia);
 	}
 
 	public int getHora() {

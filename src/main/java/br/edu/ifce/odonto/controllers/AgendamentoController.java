@@ -12,42 +12,52 @@ import br.edu.ifce.odonto.model.Agendamento;
 import br.edu.ifce.odonto.model.Dentista;
 import br.edu.ifce.odonto.model.Discente;
 import br.edu.ifce.odonto.model.Horario;
+import br.edu.ifce.odonto.model.Intervalo;
+import br.edu.ifce.odonto.model.Mensagem;
 import br.edu.ifce.odonto.util.JPAUtil;
 import spark.Request;
 import spark.Response;
 
 public class AgendamentoController {
 
-	public static String agendar(Request req, Response resp) {
+	public static Mensagem agendar(Request req, Response resp) {
 		Agendamento agendamento = new Gson().fromJson(req.body(), Agendamento.class);
+		
+		
 		Integer idDentista = agendamento.getDentista().getId();
-		agendamento.setDentistas(new ArrayList<>());	
+		agendamento.setDentistas(new ArrayList<>());
 		EntityManager manager = new JPAUtil().getEntityManager();
 		manager.getTransaction().begin();
-		
+
 		Dentista dentista = manager.find(Dentista.class, idDentista);
 		Agenda agenda = DentistaDAO.getAgenda(dentista);
-		
+
 		dentista.setAgenda(agenda);
 		agenda.setDentista(dentista);
-		
+
 		dentista.getAgenda().addAgendamento(agendamento);
 		agendamento.addDentista(dentista);
 		Discente discente = agendamento.getDiscente();
 		agendamento.setDiscentes(new ArrayList<>());
 		agendamento.addDiscente(discente);
-		
+
 		Horario horario = agendamento.getHorario();
 		agendamento.setHorarios(new ArrayList<>());
 		agendamento.addHorario(horario);
-		
+
 		System.out.println(agendamento);
-	
+
 		manager.merge(dentista);
-	
+
 		manager.getTransaction().commit();
 
-		return "impllementando";
+		return new Mensagem("agendamento realizado com sucesso", true);
+	}
+
+	public static Mensagem getAll(Request req, Response resp) {
+		Intervalo intervalo = new Intervalo(req);		
+		System.out.println(intervalo.getInicio().getDayOfWeek());
+		return new Mensagem(intervalo.toString(), true);
 	}
 
 }

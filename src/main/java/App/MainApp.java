@@ -58,6 +58,7 @@ public class MainApp {
 		
 		path("/api/", () -> {
 			path("/agendamento/", () -> {
+				get("/:diaI/:mesI/:anoI/:diaF/:mesF/:anoF",(req,resp)-> AgendamentoController.getAll(req, resp), gson::toJson);
 				post("/add","application/json",(req,resp)-> AgendamentoController.agendar(req, resp), gson::toJson);
 			});
 		});
