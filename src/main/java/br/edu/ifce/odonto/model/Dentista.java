@@ -113,73 +113,15 @@ public class Dentista {
 	
 	public void setHorariosDeAtendimento(List<Horario> horariosDeAtendimento) {
 		this.horariosDeAtendimento = horariosDeAtendimento;
-	}
+	}	
 	
-	
-	
-
-	@Override
-	public String toString() {
-		return "Dentista [id=" + id + ", nome=" + nome +"]";
-	}
-
 	public void setAgenda(Agenda agenda2) {
 		this.agenda = agenda2;
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((agenda == null) ? 0 : agenda.hashCode());
-		result = prime * result + ((crm == null) ? 0 : crm.hashCode());
-		result = prime * result + ((fones == null) ? 0 : fones.hashCode());
-		result = prime * result + ((horariosDeAtendimento == null) ? 0 : horariosDeAtendimento.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
+	public String toString() {
+		return "Dentista [id=" + id + ", nome=" + nome + ", crm=" + crm + ", fones=" + fones
+				+ ", horariosDeAtendimento=" + horariosDeAtendimento + ", agenda=" + agenda + "]";
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Dentista other = (Dentista) obj;
-		if (agenda == null) {
-			if (other.agenda != null)
-				return false;
-		} else if (!agenda.equals(other.agenda))
-			return false;
-		if (crm == null) {
-			if (other.crm != null)
-				return false;
-		} else if (!crm.equals(other.crm))
-			return false;
-		if (fones == null) {
-			if (other.fones != null)
-				return false;
-		} else if (!fones.equals(other.fones))
-			return false;
-		if (horariosDeAtendimento == null) {
-			if (other.horariosDeAtendimento != null)
-				return false;
-		} else if (!horariosDeAtendimento.equals(other.horariosDeAtendimento))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
-	
 }

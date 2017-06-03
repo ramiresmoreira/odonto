@@ -16,7 +16,6 @@ public boolean save(Dentista dentista) throws Exception{
 		
 		try {
 			dentista.setAgenda(new Agenda());
-			dentista.getAgenda().setDentista(dentista);
 			EntityManager em = new JPAUtil().getEntityManager();
 			em.getTransaction().begin();
 			em.persist(dentista);
@@ -47,16 +46,6 @@ public boolean save(Dentista dentista) throws Exception{
 		List<Dentista> resultList = query.getResultList();
 		em.close();
 		return resultList;
-	}
-
-	public static Agenda getAgenda(Dentista dentista) {
-		EntityManager em = new JPAUtil().getEntityManager();
-		em.getTransaction().begin();
-		Query query = em.createQuery("SELECT a FROM Agenda a where dentista = :pDentista");
-		query.setParameter("pDentista", dentista);
-		em.getTransaction().commit();
-		Agenda agenda = (Agenda) query.getSingleResult();
-		return agenda;
 	}
 	
 }

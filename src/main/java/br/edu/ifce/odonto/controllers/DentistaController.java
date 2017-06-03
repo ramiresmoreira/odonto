@@ -32,4 +32,11 @@ public class DentistaController {
 		return dao.getAll();
 	}
 
+	public Dentista get(Request req, Response resp) throws InterruptedException {
+		 Dentista dentista = dao.get(Integer.parseInt(req.params(":id")));
+		 System.out.println(dentista);
+		 Thread.sleep(10000);
+		 return dentista;
+	}
+
 }

@@ -30,10 +30,6 @@ public class AgendamentoController {
 		manager.getTransaction().begin();
 
 		Dentista dentista = manager.find(Dentista.class, idDentista);
-		Agenda agenda = DentistaDAO.getAgenda(dentista);
-
-		dentista.setAgenda(agenda);
-		agenda.setDentista(dentista);
 
 		dentista.getAgenda().addAgendamento(agendamento);
 		agendamento.addDentista(dentista);
@@ -44,10 +40,8 @@ public class AgendamentoController {
 		Horario horario = agendamento.getHorario();
 		agendamento.setHorarios(new ArrayList<>());
 		agendamento.addHorario(horario);
-
-		System.out.println(agendamento);
-
 		manager.merge(dentista);
+		System.out.println(dentista.getAgenda().getAgendamentos().size());
 
 		manager.getTransaction().commit();
 

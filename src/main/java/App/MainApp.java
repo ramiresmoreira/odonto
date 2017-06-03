@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import br.edu.ifce.odonto.controllers.AgendamentoController;
 import br.edu.ifce.odonto.controllers.DentistaController;
 import br.edu.ifce.odonto.controllers.DiscenteController;
+import br.edu.ifce.odonto.util.GsonUtil;
 import br.edu.ifce.odonto.util.HibernateUtil;
 import spark.Spark;
 
@@ -23,7 +24,7 @@ public class MainApp {
 
 	private static DiscenteController discenteController = new DiscenteController();
 	private static DentistaController dentistaController = new DentistaController();
-	private static Gson gson = new Gson();
+	private static Gson gson = GsonUtil.getGson();
 	private static Session session;
 
 	public static void main(String[] args) {
@@ -52,6 +53,7 @@ public class MainApp {
 		path("/api/", () -> {
 			path("/dentista/", () -> {
 				get("/","application/json",  (req, resp) -> dentistaController.getAll(), gson::toJson);
+				get(":id","application/json",  (req, resp) -> dentistaController.get(req,resp), gson::toJson);
 				post("/add", (req, resp) -> dentistaController.addDentista(req, resp), gson::toJson);
 			});
 		});
