@@ -23,9 +23,9 @@ public class Agendamento {
 	@Cascade(CascadeType.ALL)
 	private List<Discente> discentes;
 		
-	@ManyToMany
-	@Cascade(CascadeType.ALL)
-	private List<Dentista> dentistas;
+//	@ManyToMany
+//	@Cascade(CascadeType.ALL)
+//	private List<Dentista> dentistas;
 
 	@ManyToMany
 	@Cascade(CascadeType.ALL)
@@ -61,13 +61,13 @@ public class Agendamento {
 		this.discente = discente;
 	}
 
-	public List<Dentista> getDentistas() {
-		return dentistas;
-	}
-
-	public void setDentistas(List<Dentista> dentistas) {
-		this.dentistas = dentistas;
-	}
+//	public List<Dentista> getDentistas() {
+//		return dentistas;
+//	}
+//
+//	public void setDentistas(List<Dentista> dentistas) {
+//		this.dentistas = dentistas;
+//	}
 
 	public List<Horario> getHorarios() {
 		return horarios;
@@ -93,9 +93,9 @@ public class Agendamento {
 		this.dentista = dentista;
 	}
 	
-	public boolean addDentista(Dentista dentista){
-		return dentistas.add(dentista);
-	}
+//	public boolean addDentista(Dentista dentista){
+//		return dentistas.add(dentista);
+//	}
 	
 	public List<Discente> getDiscentes() {
 		return discentes;
@@ -120,7 +120,7 @@ public class Agendamento {
 
 	@Override
 	public String toString() {
-		return "Agendamento [discentes=" + discentes + ", dentistas=" + dentistas + ", horarios=" + horarios
+		return "Agendamento [discentes=" + discentes + ", horarios=" + horarios
 				+ ", observacao=" + observacao + "]";
 	}
 

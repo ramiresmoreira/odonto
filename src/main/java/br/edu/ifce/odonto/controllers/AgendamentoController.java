@@ -1,6 +1,7 @@
 package br.edu.ifce.odonto.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -20,20 +21,19 @@ import spark.Response;
 
 public class AgendamentoController {
 
-	public static Mensagem agendar(Request req, Response resp) {
+	public static List<Agendamento> agendar(Request req, Response resp) {
 		Agendamento agendamento = new Gson().fromJson(req.body(), Agendamento.class);
 		
 		
 		Integer idDentista = agendamento.getDentista().getId();
-		agendamento.setDentistas(new ArrayList<>());
 		EntityManager manager = new JPAUtil().getEntityManager();
 		manager.getTransaction().begin();
 
+		Discente discente = agendamento.getDiscente();
 		Dentista dentista = manager.find(Dentista.class, idDentista);
 
+		
 		dentista.getAgenda().addAgendamento(agendamento);
-		agendamento.addDentista(dentista);
-		Discente discente = agendamento.getDiscente();
 		agendamento.setDiscentes(new ArrayList<>());
 		agendamento.addDiscente(discente);
 
@@ -45,7 +45,7 @@ public class AgendamentoController {
 
 		manager.getTransaction().commit();
 
-		return new Mensagem("agendamento realizado com sucesso", true);
+		return dentista.getAgenda().getAgendamentos();
 	}
 
 	public static Mensagem getAll(Request req, Response resp) {
