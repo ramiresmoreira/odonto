@@ -21,8 +21,8 @@ public class Agendamento {
 	
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=javax.persistence.CascadeType.ALL)
-	@JoinColumn(name="discente_id")
-	private Discente discente;
+	@JoinColumn(name="paciente_id")
+	private Paciente paciente;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade=javax.persistence.CascadeType.ALL)
 	@JoinColumn(name="horario_id")
@@ -41,12 +41,12 @@ public class Agendamento {
 		this.id = id;
 	}
 
-	public Discente getDiscente() {
-		return discente;
+	public Paciente getPaciente() {
+		return paciente;
 	}
 
-	public void setDiscente(Discente discente) {
-		this.discente = discente;
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
 	}
 
 	public String getObservacao() {

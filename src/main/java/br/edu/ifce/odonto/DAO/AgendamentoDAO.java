@@ -6,8 +6,7 @@ import br.edu.ifce.odonto.model.Agendamento;
 import br.edu.ifce.odonto.util.JPAUtil;
 
 public class AgendamentoDAO {
-	
-	
+
 	public Agendamento save(Agendamento agendamento){
 		EntityManager manager = new JPAUtil().getEntityManager();
 		manager.getTransaction().begin();

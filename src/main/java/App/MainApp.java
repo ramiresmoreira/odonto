@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 
 import br.edu.ifce.odonto.controllers.AgendamentoController;
 import br.edu.ifce.odonto.controllers.DentistaController;
-import br.edu.ifce.odonto.controllers.DiscenteController;
+import br.edu.ifce.odonto.controllers.PacienteController;
 import br.edu.ifce.odonto.util.GsonUtil;
 import br.edu.ifce.odonto.util.HibernateUtil;
 
 public class MainApp {
 
-	private static DiscenteController discenteController = new DiscenteController();
+	private static PacienteController discenteController = new PacienteController();
 	private static DentistaController dentistaController = new DentistaController();
 	private static Gson gson = GsonUtil.getGson();
 	private static Session session;

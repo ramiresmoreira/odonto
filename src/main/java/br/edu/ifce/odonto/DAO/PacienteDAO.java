@@ -6,20 +6,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.edu.ifce.odonto.model.Discente;
+import br.edu.ifce.odonto.model.Paciente;
 import br.edu.ifce.odonto.util.JPAUtil;
 
-public class DiscenteDAO {
-	
-//	private EntityManager 
+public class PacienteDAO {
 
-
-	public boolean save(Discente discente) throws Exception{
-		
+	public boolean save(Paciente paciente) throws Exception {
 		try {
 			EntityManager em = new JPAUtil().getEntityManager();
 			em.getTransaction().begin();
-			em.persist(discente);
+			em.persist(paciente);
 			em.getTransaction().commit();
 			em.close();
 			return true;
@@ -28,26 +24,25 @@ public class DiscenteDAO {
 			return false;
 		}
 	}
-	
-	
-	public Discente get(Integer id){
+
+	public Paciente get(Integer id) {
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();
-		Discente discente = em.find(Discente.class, id);
+		Paciente paciente = em.find(Paciente.class, id);
 		em.getTransaction().commit();
 		em.close();
-		return discente;
+		return paciente;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public Collection<Discente> getAll(){
+	public Collection<Paciente> getAll() {
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();
-		Query query = em.createQuery("SELECT d FROM Discente d");
+		Query query = em.createQuery("SELECT p FROM Paciente p");
 		em.getTransaction().commit();
-		List<Discente> resultList = query.getResultList();
+		List<Paciente> resultList = query.getResultList();
 		em.close();
 		return resultList;
 	}
-	
+
 }

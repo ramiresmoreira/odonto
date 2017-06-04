@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 
 import br.edu.ifce.odonto.DAO.AgendamentoDAO;
 import br.edu.ifce.odonto.DAO.DentistaDAO;
-import br.edu.ifce.odonto.DAO.DiscenteDAO;
+import br.edu.ifce.odonto.DAO.PacienteDAO;
 import br.edu.ifce.odonto.model.Agendamento;
 import br.edu.ifce.odonto.model.Dentista;
-import br.edu.ifce.odonto.model.Discente;
+import br.edu.ifce.odonto.model.Paciente;
 import br.edu.ifce.odonto.model.Intervalo;
 import br.edu.ifce.odonto.model.Mensagem;
 import spark.Request;
@@ -26,8 +26,8 @@ public class AgendamentoController {
 		 * que alguns dados sejam sobrescritos, seja por erro ou por má inteção.  
 		*/
 		Dentista dentista = new DentistaDAO().get(agendamento.getDentista().getId()); 
-		Discente discente = new DiscenteDAO().get(agendamento.getDiscente().getId());
-		agendamento.setDiscente(discente);
+		Paciente paciente = new PacienteDAO().get(agendamento.getPaciente().getId());
+		agendamento.setPaciente(paciente);
 		agendamento.setDentista(dentista);
 		
 		dao.save(agendamento);

@@ -13,7 +13,7 @@
 
 		<mapping class="br.edu.ifce.odonto.model.Agendamento"/>
 		<mapping class="br.edu.ifce.odonto.model.Dentista" />
-		<mapping class="br.edu.ifce.odonto.model.Discente" />
+		<mapping class="br.edu.ifce.odonto.model.Paciente" />
 		<mapping class="br.edu.ifce.odonto.model.Horario" />
 		
 	</session-factory>

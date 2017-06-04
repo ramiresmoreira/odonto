@@ -5,43 +5,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+@Entity
 public class Paciente {
-
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	private Dentista dentista;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private int id;
 	private String nome;
-
-	public Paciente(String nome, Dentista pDentista) {
+	private int idade;
+	
+	public Paciente() {
+	}
+	
+	public Paciente(String nome, int idade) {
 		this.nome = nome;
-		this.dentista = pDentista;
+		this.idade = idade;
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
+	
+	public void setId(int id) {
 		this.id = id;
 	}
-
-	public Dentista getDentista() {
-		return dentista;
+	
+	public int getId() {
+		return id;
 	}
-
-	public void setDentista(Dentista dentista) {
-		this.dentista = dentista;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public int getIdade() {
+		return idade;
 	}
-	
-
 }
