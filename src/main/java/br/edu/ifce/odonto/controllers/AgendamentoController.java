@@ -39,9 +39,12 @@ public class AgendamentoController {
 		return new Mensagem(intervalo.toString(), true);
 	}
 
-	public static List<Agendamento> getAgendamentos(Request req, Response resp) {
-		List<Agendamento> agendamentos = dao.getAgendamentosByPaciente(Integer.parseInt(req.params(":id")));
-		return agendamentos;
+	public static List<Agendamento> getAgendamentosPorPaciente(Request req, Response resp) {
+		return dao.getAgendamentosByPaciente(Integer.parseInt(req.params(":id")));
+	}
+
+	public static Object getAgendamentosPorDentista(Request req, Response resp) {
+		return dao.getAgendamentosByDentista(Integer.parseInt(req.params(":id")));
 	}
 
 }

@@ -31,5 +31,18 @@ public class AgendamentoDAO {
 		em.close();
 		return resultList;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Agendamento> getAgendamentosByDentista(int dentistaID) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		em.getTransaction().begin();
+		String queryString = "SELECT a.dentista.nome ,a.paciente.nome ,a.observacao, a.horario FROM Agendamento a where a.dentista = :pDentista";
+		Query query = em.createQuery(queryString);
+		query.setParameter("pDentista", new DentistaDAO().get(dentistaID));
+		em.getTransaction().commit();
+		List<Agendamento> resultList = query.getResultList();
+		em.close();
+		return resultList;
+	}
 
 }

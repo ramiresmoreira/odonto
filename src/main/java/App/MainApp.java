@@ -71,7 +71,8 @@ public class MainApp {
 		 */
 		path("/api/", () -> {
 			path("/agendamento/", () -> {
-				get("paciente/:id",(req,resp)-> AgendamentoController.getAgendamentos(req, resp), gson::toJson);
+				get("paciente/:id",(req,resp)-> AgendamentoController.getAgendamentosPorPaciente(req, resp), gson::toJson);
+				get("dentista/:id",(req,resp)-> AgendamentoController.getAgendamentosPorDentista(req, resp), gson::toJson);
 				get("/:diaI/:mesI/:anoI/:diaF/:mesF/:anoF",(req,resp)-> AgendamentoController.getAll(req, resp), gson::toJson);
 				post("/add","application/json",(req,resp)-> AgendamentoController.agendar(req, resp), gson::toJson);
 			});
