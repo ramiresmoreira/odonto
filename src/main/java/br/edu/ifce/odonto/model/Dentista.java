@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,13 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -35,8 +30,8 @@ public class Dentista {
 	String crm;
 	
 	@ElementCollection
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@Column(nullable=false,name="fones")
 	List<String> fones;
 
 	
@@ -45,13 +40,7 @@ public class Dentista {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	List<Horario> horariosDeAtendimento = new ArrayList<Horario>();
 	
-	@OneToOne
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
-	Agenda agenda;
-	
-	
 	public Dentista() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Dentista(String nome, String crm, List<String> fones) {	
@@ -68,11 +57,6 @@ public class Dentista {
 		horariosDeAtendimento.sort(new ComparadorHorario());
 		return Collections.unmodifiableCollection(horariosDeAtendimento);
 	}
-
-	public Agenda getAgenda() {
-		return agenda;
-	}
-
 	
 	public void upadeHorarios(List<Horario> novosHorarios){
 		horariosDeAtendimento.clear();
@@ -114,14 +98,6 @@ public class Dentista {
 	public void setHorariosDeAtendimento(List<Horario> horariosDeAtendimento) {
 		this.horariosDeAtendimento = horariosDeAtendimento;
 	}	
-	
-	public void setAgenda(Agenda agenda2) {
-		this.agenda = agenda2;
-	}
 
-	@Override
-	public String toString() {
-		return "Dentista [id=" + id + ", nome=" + nome + ", crm=" + crm + ", fones=" + fones
-				+ ", horariosDeAtendimento=" + horariosDeAtendimento + ", agenda=" + agenda + "]";
-	}
+
 }

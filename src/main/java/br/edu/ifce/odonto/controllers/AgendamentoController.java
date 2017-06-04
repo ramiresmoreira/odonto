@@ -1,51 +1,37 @@
 package br.edu.ifce.odonto.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
 import com.google.gson.Gson;
 
+import br.edu.ifce.odonto.DAO.AgendamentoDAO;
 import br.edu.ifce.odonto.DAO.DentistaDAO;
-import br.edu.ifce.odonto.model.Agenda;
+import br.edu.ifce.odonto.DAO.DiscenteDAO;
 import br.edu.ifce.odonto.model.Agendamento;
 import br.edu.ifce.odonto.model.Dentista;
 import br.edu.ifce.odonto.model.Discente;
-import br.edu.ifce.odonto.model.Horario;
 import br.edu.ifce.odonto.model.Intervalo;
 import br.edu.ifce.odonto.model.Mensagem;
-import br.edu.ifce.odonto.util.JPAUtil;
 import spark.Request;
 import spark.Response;
 
 public class AgendamentoController {
+	
+	private static AgendamentoDAO dao = new AgendamentoDAO();
 
-	public static List<Agendamento> agendar(Request req, Response resp) {
+	public static Mensagem agendar(Request req, Response resp) {
 		Agendamento agendamento = new Gson().fromJson(req.body(), Agendamento.class);
+		/*
+		 * para que o json nao seja muito carregado de informação pode-se enviar
+		 * somento o id do dentista e do paciente, e em seguida recuperamos os dados 
+		 * no DB atualizamos o agendamento, essa operção é importante, pois evita
+		 * que alguns dados sejam sobrescritos, seja por erro ou por má inteção.  
+		*/
+		Dentista dentista = new DentistaDAO().get(agendamento.getDentista().getId()); 
+		Discente discente = new DiscenteDAO().get(agendamento.getDiscente().getId());
+		agendamento.setDiscente(discente);
+		agendamento.setDentista(dentista);
 		
-		
-		Integer idDentista = agendamento.getDentista().getId();
-		EntityManager manager = new JPAUtil().getEntityManager();
-		manager.getTransaction().begin();
-
-		Discente discente = agendamento.getDiscente();
-		Dentista dentista = manager.find(Dentista.class, idDentista);
-
-		
-		dentista.getAgenda().addAgendamento(agendamento);
-		agendamento.setDiscentes(new ArrayList<>());
-		agendamento.addDiscente(discente);
-
-		Horario horario = agendamento.getHorario();
-		agendamento.setHorarios(new ArrayList<>());
-		agendamento.addHorario(horario);
-		manager.merge(dentista);
-		System.out.println(dentista.getAgenda().getAgendamentos().size());
-
-		manager.getTransaction().commit();
-
-		return dentista.getAgenda().getAgendamentos();
+		dao.save(agendamento);
+		return new Mensagem("agendamento relizado com sucesso!", true);
 	}
 
 	public static Mensagem getAll(Request req, Response resp) {

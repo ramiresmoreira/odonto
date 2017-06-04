@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.edu.ifce.odonto.model.Agenda;
 import br.edu.ifce.odonto.model.Dentista;
 import br.edu.ifce.odonto.util.JPAUtil;
 
@@ -15,7 +14,6 @@ public class DentistaDAO {
 public boolean save(Dentista dentista) throws Exception{
 		
 		try {
-			dentista.setAgenda(new Agenda());
 			EntityManager em = new JPAUtil().getEntityManager();
 			em.getTransaction().begin();
 			em.persist(dentista);

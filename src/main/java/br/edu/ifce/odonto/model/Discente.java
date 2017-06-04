@@ -8,7 +8,6 @@ import javax.persistence.Id;
 @Entity
 public class Discente {
 	
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
@@ -16,7 +15,6 @@ public class Discente {
 	private int idade;
 	
 	public Discente() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Discente(String nome, int idade) {
@@ -35,41 +33,8 @@ public class Discente {
 	public String getNome() {
 		return nome;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + idade;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Discente other = (Discente) obj;
-		if (idade != other.idade)
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
 
 	public int getIdade() {
 		return idade;
 	}
-
-	@Override
-	public String toString() {
-		return "Discente [id=" + id + ", nome=" + nome + "]";
-	}
-
 }

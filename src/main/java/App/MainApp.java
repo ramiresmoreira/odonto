@@ -18,7 +18,6 @@ import br.edu.ifce.odonto.controllers.DentistaController;
 import br.edu.ifce.odonto.controllers.DiscenteController;
 import br.edu.ifce.odonto.util.GsonUtil;
 import br.edu.ifce.odonto.util.HibernateUtil;
-import spark.Spark;
 
 public class MainApp {
 
@@ -77,8 +76,7 @@ public class MainApp {
 			int PORT = Integer.parseInt(processBuilder.environment().get("PORT"));
 			return PORT;
 		}
-		return 4567; // return default port if heroku-port isn't set (i.e. on
-						// localhost)
+		return 4567;
 	}
 
 	public static Session getSession() {

@@ -11,7 +11,6 @@
 		<property name="hbm2ddl.auto">update</property>
 		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 
-		<mapping class="br.edu.ifce.odonto.model.Agenda" />
 		<mapping class="br.edu.ifce.odonto.model.Agendamento"/>
 		<mapping class="br.edu.ifce.odonto.model.Dentista" />
 		<mapping class="br.edu.ifce.odonto.model.Discente" />
