@@ -10,11 +10,11 @@ public class Mensagem {
 		this.success = success;
 	}
 	
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}	
+	public boolean isSuccess() {
+		return success;
+	}
 }

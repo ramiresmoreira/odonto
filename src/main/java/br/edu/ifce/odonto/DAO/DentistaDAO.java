@@ -26,6 +26,13 @@ public boolean save(Dentista dentista) throws Exception{
 		}
 	}
 	
+
+	/**
+	 * retorna um dentista ou nulo caso não for encontrado 
+	 * nenhum dentista com o id passado  
+	 * @return Dentista
+	 * @param int id
+	 * */
 	public Dentista get(Integer id){
 		EntityManager em = new JPAUtil().getEntityManager();
 		em.getTransaction().begin();

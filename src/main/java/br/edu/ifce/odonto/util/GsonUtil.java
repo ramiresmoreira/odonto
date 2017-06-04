@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.edu.ifce.odonto.adapter.HibernateProxyTypeAdapter;
 import br.edu.ifce.odonto.adapter.LocalDateAdapter;
 import br.edu.ifce.odonto.adapter.LocalTimeAdapter;
 
@@ -16,6 +17,7 @@ public class GsonUtil {
         .setPrettyPrinting()
         .registerTypeAdapter(LocalDateTime.class, new LocalTimeAdapter())
         .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+        .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
         .create();
 	}
 }

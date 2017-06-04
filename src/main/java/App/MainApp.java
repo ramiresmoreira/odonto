@@ -40,7 +40,11 @@ public class MainApp {
 			session = HibernateUtil.openSession("localhost", 5432, "/odonto", "postgres", "R@mireswin120210");
 			System.out.println("rodando local");
 		}
+		
 
+		/*
+		 * Paciente
+		 */
 		path("/api/", () -> {
 			path("/paciente/", () -> {
 				get("/","application/json",  (req, resp) -> discenteController.getAll(), gson::toJson);
@@ -48,7 +52,11 @@ public class MainApp {
 				post("/add", (req, resp) -> discenteController.addUser(req, resp), gson::toJson);
 			});
 		});
-
+		
+		
+		/*
+		 * Dentista
+		 */
 		path("/api/", () -> {
 			path("/dentista/", () -> {
 				get("/","application/json",  (req, resp) -> dentistaController.getAll(), gson::toJson);
@@ -57,13 +65,21 @@ public class MainApp {
 			});
 		});
 		
+		
+		/*
+		 * Agendamento
+		 */
 		path("/api/", () -> {
 			path("/agendamento/", () -> {
+				get("paciente/:id",(req,resp)-> AgendamentoController.getAgendamentos(req, resp), gson::toJson);
 				get("/:diaI/:mesI/:anoI/:diaF/:mesF/:anoF",(req,resp)-> AgendamentoController.getAll(req, resp), gson::toJson);
 				post("/add","application/json",(req,resp)-> AgendamentoController.agendar(req, resp), gson::toJson);
 			});
 		});
 
+		/*
+		 * Filtros
+		 */
 		after((req, resp) -> {
 			resp.header("Content-Encondig", "gzip");
 			resp.type("application/json");

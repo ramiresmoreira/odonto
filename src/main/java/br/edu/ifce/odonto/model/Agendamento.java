@@ -15,16 +15,16 @@ public class Agendamento {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=javax.persistence.CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=javax.persistence.CascadeType.ALL)
 	@JoinColumn(name="dentista_id")
 	Dentista dentista;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=javax.persistence.CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=javax.persistence.CascadeType.ALL)
 	@JoinColumn(name="paciente_id")
 	private Paciente paciente;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade=javax.persistence.CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=javax.persistence.CascadeType.ALL)
 	@JoinColumn(name="horario_id")
 	private Horario horario;
 	
@@ -73,5 +73,7 @@ public class Agendamento {
 	public void setHorario(Horario horario) {
 		this.horario = horario;
 	}
+
+
 
 }

@@ -15,7 +15,7 @@ public class PacienteDAO {
 		try {
 			EntityManager em = new JPAUtil().getEntityManager();
 			em.getTransaction().begin();
-			em.persist(paciente);
+			em.merge(paciente);
 			em.getTransaction().commit();
 			em.close();
 			return true;
