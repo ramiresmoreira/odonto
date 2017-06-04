@@ -37,7 +37,7 @@ public class MainApp {
 			session = HibernateUtil.openSession(dbURl.getHost(), dbURl.getPort(), dbURl.getPath(), userInfo[0],
 					userInfo[1]);
 		} catch (URISyntaxException | NullPointerException e) {
-			session = HibernateUtil.openSession("localhost", 5432, "/odonto", "postgres", "R@mireswin120210");
+			session = HibernateUtil.openSession("localhost", 5432, "/odonto", "postgres", "password");
 			System.out.println("rodando local");
 		}
 		
